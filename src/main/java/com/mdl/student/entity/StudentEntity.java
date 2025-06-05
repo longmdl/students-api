@@ -1,10 +1,8 @@
 package com.mdl.student.entity;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
@@ -30,9 +28,6 @@ public class StudentEntity {
     @Column(name ="email")
     private String email;
 
-    @Column(name ="team")
-    private String team;
-
     @Column(name ="birthdate")
     private Date birthdate;
 
@@ -45,4 +40,18 @@ public class StudentEntity {
     @Column(name ="deleted_at")
     private Date deletedAt;
 
+
+    /**
+     * JoinColumn(name="team_name") → the column in STUDENT table
+     * referencedColumnName="name" → points to TEAM(name), which is PK here.
+     */
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(
+            name = "team",
+            referencedColumnName = "name",
+            nullable = false,
+            foreignKey = @ForeignKey(name = "fk_student_team_name")
+    )
+    @JsonBackReference
+    private TeamEntity team;
 }

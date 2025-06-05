@@ -1,6 +1,5 @@
 package com.mdl.student.request;
 
-import com.mdl.student.entity.TeamEntity;
 import lombok.*;
 
 @NoArgsConstructor
@@ -8,6 +7,6 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-public class UpdateTeamStudentRequest {
-    TeamEntity team;
+public class UpdateTeamNameRequest {
+    private String newTeamName;
 }

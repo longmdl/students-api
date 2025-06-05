@@ -1,6 +1,7 @@
 package com.mdl.student.controller;
 
 import com.mdl.student.entity.StudentEntity;
+import com.mdl.student.exception.CustomException;
 import com.mdl.student.request.*;
 import com.mdl.student.service.impl.StudentServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -13,14 +14,14 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/students")
 @RequiredArgsConstructor
-public class NewController {
+public class StudentController {
 
     private final StudentServiceImpl studentService;
 
 
     @PostMapping()
     public @ResponseBody StudentEntity create(
-            @RequestBody CreateStudentRequest request) {
+            @RequestBody CreateStudentRequest request) throws CustomException {
         return studentService.create(request);
     }
 
@@ -38,7 +39,7 @@ public class NewController {
 
     @GetMapping("/{id}")
     public @ResponseBody StudentEntity findByID(
-            @PathVariable("id") Integer studentID) {
+            @PathVariable("id") String studentID) {
 
         Optional<StudentEntity> opt = studentService.getStudentById(studentID);
 
@@ -64,7 +65,7 @@ public class NewController {
 
     @PutMapping("/{id}")
     public @ResponseBody StudentEntity updateById(
-            @PathVariable("id") Integer studentID,
+            @PathVariable("id") String studentID,
 
             @RequestBody
             UpdateNameStudentRequest request) {
@@ -74,7 +75,7 @@ public class NewController {
 
     @PutMapping("/{id}/team")
     public @ResponseBody StudentEntity updateById(
-            @PathVariable("id") Integer studentID,
+            @PathVariable("id") String studentID,
 
             @RequestBody
             UpdateTeamStudentRequest request) {
@@ -84,7 +85,7 @@ public class NewController {
 
     @PutMapping("/{id}/birthday")
     public @ResponseBody StudentEntity updateBirthdayById(
-            @PathVariable("id") Integer studentID,
+            @PathVariable("id") String studentID,
 
             @RequestBody
             UpdateBirthdayStudentRequest request) {
@@ -94,7 +95,7 @@ public class NewController {
 
     @PutMapping("/{id}/email")
     public @ResponseBody StudentEntity updateEmailById(
-            @PathVariable("id") Integer studentID,
+            @PathVariable("id") String studentID,
 
             @RequestBody
             UpdateEmailStudentRequest request) {
@@ -105,7 +106,7 @@ public class NewController {
 
     @DeleteMapping("/{id}")
     public @ResponseBody StudentEntity deleteByID(
-            @PathVariable("id") Integer studentID) {
+            @PathVariable("id") String studentID) {
 
         return studentService.deleteStudentById(studentID);
     }

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface UserRepository extends JpaRepository<StudentEntity, Integer> {
+public interface StudentRepository extends JpaRepository<StudentEntity, String> {
     @Query("select s from StudentEntity  s where :name is null or s.name like lower(concat('%', :name, '%'))")
     List<StudentEntity> findAllByName(String name);
 

@@ -1,8 +1,10 @@
 package com.mdl.student.request;
 
+import com.mdl.student.entity.TeamEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -10,9 +12,9 @@ import java.util.Date;
 @NoArgsConstructor
 @Getter
 public class CreateStudentRequest {
-
+    String id;
     String name;
     String email;
     String team;
-    Date birthDate;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date birthdate;
 }
