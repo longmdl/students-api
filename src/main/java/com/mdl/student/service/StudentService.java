@@ -7,9 +7,11 @@ import java.util.List;
 
 public interface StudentService {
 
-    List<StudentEntity> list();
+    List<StudentEntity> list(String name);
 
     StudentEntity get(int id);
 
     StudentEntity create(CreateStudentRequest request);
+
+
 }

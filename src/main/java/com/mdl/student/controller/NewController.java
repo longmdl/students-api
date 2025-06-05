@@ -28,8 +28,10 @@ public class NewController {
     }
 
     @GetMapping
-    public @ResponseBody List<StudentEntity> list() {
-        return studentService.list();
+    public @ResponseBody List<StudentEntity> list(
+            @RequestParam(value = "name", required = false) String name
+    ) {
+        return studentService.list(name);
     }
 
     @GetMapping("/active")

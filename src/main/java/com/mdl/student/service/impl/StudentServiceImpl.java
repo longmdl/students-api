@@ -27,7 +27,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     public List<StudentEntity> getStudentsByName(String name) {
-        return userRepository.findByName(name);
+        return userRepository.findAllByName(name);
     }
 
     public List<StudentEntity> getActiveStudent() {
@@ -82,8 +82,8 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<StudentEntity> list() {
-        return userRepository.findAll();
+    public List<StudentEntity> list(String name) {
+        return userRepository.findAllByName(name);
     }
 
     @Override

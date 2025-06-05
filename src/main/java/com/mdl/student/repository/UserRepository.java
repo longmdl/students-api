@@ -10,7 +10,8 @@ import java.util.List;
 
 @Repository
 public interface UserRepository extends JpaRepository<StudentEntity, Integer> {
-    List<StudentEntity> findByName(String name);
+    @Query("select s from StudentEntity  s where :name is null or s.name like lower(concat('%', :name, '%'))")
+    List<StudentEntity> findAllByName(String name);
 
     @Query("SELECT s FROM StudentEntity s WHERE LOWER(s.name) LIKE LOWER(CONCAT('%', :searchText, '%'))")
     List<StudentEntity> findStudentBySearchText(@Param("searchText") String searchText);
