@@ -1,10 +1,7 @@
 package com.mdl.student.controller;
 
 import com.mdl.student.entity.StudentEntity;
-import com.mdl.student.request.CreateStudentRequest;
-import com.mdl.student.request.UpdateBirthdayStudentRequest;
-import com.mdl.student.request.UpdateNameStudentRequest;
-import com.mdl.student.request.UpdateTeamStudentRequest;
+import com.mdl.student.request.*;
 import com.mdl.student.service.impl.StudentServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -93,6 +90,16 @@ public class NewController {
             UpdateBirthdayStudentRequest request) {
 
         return studentService.updateBirthday(studentID, request.getBirthday());
+    }
+
+    @PutMapping("/{id}/email")
+    public @ResponseBody StudentEntity updateEmailById(
+            @PathVariable("id") Integer studentID,
+
+            @RequestBody
+            UpdateEmailStudentRequest request) {
+
+        return studentService.updateStudentEmail(studentID, request.getEmail());
     }
 
 

@@ -44,6 +44,17 @@ public class StudentServiceImpl implements StudentService {
         return userRepository.save(student);
     }
 
+    public StudentEntity updateStudentEmail(Integer id, String newEmail) {
+        Optional<StudentEntity> opt = userRepository.findById(id);
+        if (opt.isEmpty()) {
+            return null;
+        }
+        StudentEntity student = opt.get();
+        student.setEmail(newEmail);
+        student.setUpdatedAt(new Date());
+        return userRepository.save(student);
+    }
+
     public StudentEntity updateStudentTeam(Integer id, String newTeam) {
         Optional<StudentEntity> opt = userRepository.findById(id);
         if (opt.isEmpty()) {
