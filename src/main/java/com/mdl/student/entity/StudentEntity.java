@@ -1,4 +1,4 @@
-package com.mdl.student.Model;
+package com.mdl.student.entity;
 
 
 import jakarta.persistence.Column;
@@ -19,19 +19,22 @@ import java.util.Date;
 @Builder
 
 @Table(name = "student")
-public class Student {
+public class StudentEntity {
     @Id
-@Column(name = "id")
-    private Integer id;
+    @Column(name = "id")
+    private String id;
 
     @Column(name ="name")
     private String name;
 
+    @Column(name ="email")
+    private String email;
+
     @Column(name ="team")
     private String team;
 
-    @Column(name ="birthday")
-    private Date birthday;
+    @Column(name ="birthdate")
+    private Date birthdate;
 
    @Column(name ="created_at")
     private Date createAt;

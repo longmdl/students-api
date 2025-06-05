@@ -1,16 +1,15 @@
 package com.mdl.student.controller;
 
-import com.mdl.student.Model.Student;
-import com.mdl.student.Service.StudentService;
+import com.mdl.student.entity.StudentEntity;
+import com.mdl.student.request.CreateStudentRequest;
 import com.mdl.student.request.UpdateBirthdayStudentRequest;
 import com.mdl.student.request.UpdateNameStudentRequest;
 import com.mdl.student.request.UpdateTeamStudentRequest;
+import com.mdl.student.service.impl.StudentServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,43 +18,37 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class NewController {
 
-    private final StudentService studentService;
+    private final StudentServiceImpl studentService;
 
 
-    @PostMapping("/{name}/{id}/{team}/{birthday}")
-    public @ResponseBody Student addNewUser(
-            @PathVariable("name") String name,
-            @PathVariable("id") Integer studentID,
-            @PathVariable("team") String team,
-            @PathVariable("birthday")
-            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date birthday
-    ) {
-
-        return studentService.createStudent(studentID, name, team, birthday);
+    @PostMapping()
+    public @ResponseBody StudentEntity create(
+            @RequestBody CreateStudentRequest request) {
+        return studentService.create(request);
     }
 
     @GetMapping
-    public @ResponseBody Iterable<Student> getAllUsers() {
-        return studentService.getAllStudents();
+    public @ResponseBody List<StudentEntity> list() {
+        return studentService.list();
     }
 
     @GetMapping("/active")
-    public @ResponseBody Iterable<Student> getAllActiveUsers() {
+    public @ResponseBody Iterable<StudentEntity> getAllActiveUsers() {
         return studentService.getActiveStudent();
     }
 
     @GetMapping("/{id}")
-    public @ResponseBody Student findByID(
+    public @ResponseBody StudentEntity findByID(
             @PathVariable("id") Integer studentID) {
 
-        Optional<Student> opt = studentService.getStudentById(studentID);
+        Optional<StudentEntity> opt = studentService.getStudentById(studentID);
 
         return opt.orElse(null);
     }
 
     @GetMapping("/search")
-    public @ResponseBody ResponseEntity<List<Student>> searchStudent(@RequestParam String searchText){
-        List<Student> foundStudents = studentService.searchStudent(searchText);
+    public @ResponseBody ResponseEntity<List<StudentEntity>> searchStudent(@RequestParam String searchText) {
+        List<StudentEntity> foundStudents = studentService.searchStudent(searchText);
         if (!foundStudents.isEmpty()) {
             return ResponseEntity.ok(foundStudents);
         } else {
@@ -64,14 +57,14 @@ public class NewController {
     }
 
     @GetMapping("/name/{name}")
-    public @ResponseBody List<Student> findByName(
+    public @ResponseBody List<StudentEntity> findByName(
             @PathVariable("name") String name) {
 
         return studentService.getStudentsByName(name);
     }
 
     @PutMapping("/{id}")
-    public @ResponseBody Student updateById(
+    public @ResponseBody StudentEntity updateById(
             @PathVariable("id") Integer studentID,
 
             @RequestBody
@@ -81,7 +74,7 @@ public class NewController {
     }
 
     @PutMapping("/{id}/team")
-    public @ResponseBody Student updateById(
+    public @ResponseBody StudentEntity updateById(
             @PathVariable("id") Integer studentID,
 
             @RequestBody
@@ -91,7 +84,7 @@ public class NewController {
     }
 
     @PutMapping("/{id}/birthday")
-    public @ResponseBody Student updateBirthdayById(
+    public @ResponseBody StudentEntity updateBirthdayById(
             @PathVariable("id") Integer studentID,
 
             @RequestBody
@@ -102,7 +95,7 @@ public class NewController {
 
 
     @DeleteMapping("/{id}")
-    public @ResponseBody Student deleteByID(
+    public @ResponseBody StudentEntity deleteByID(
             @PathVariable("id") Integer studentID) {
 
         return studentService.deleteStudentById(studentID);
